@@ -1,11 +1,11 @@
 #include <gtk/gtk.h>
+
+static GtkBuilder      *builder; 
+static GtkWidget       *window;
+static GError          *error;
  
 int main(int argc, char *argv[])
 {
-    GtkBuilder      *builder; 
-    GtkWidget       *window;
-    GError          *error;
-
     /* Init GTK+ */ 
     gtk_init(&argc, &argv);
  
@@ -27,9 +27,6 @@ int main(int argc, char *argv[])
     /* Connect signals */
     gtk_builder_connect_signals( builder, NULL );
  
-    /* Destroy builder, since we don't need it anymore */
-    g_object_unref( G_OBJECT( builder ) );
- 
     /* Show window. All other widgets are automatically shown by GtkBuilder */
     gtk_widget_show( window );               
 
@@ -42,5 +39,8 @@ int main(int argc, char *argv[])
 // called when window is closed
 void on_window_main_destroy()
 {
+    /* Destroy builder, since we don't need it anymore */
+    g_object_unref( G_OBJECT( builder ) );
+
     gtk_main_quit();
 }
